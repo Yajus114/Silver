@@ -9,11 +9,7 @@ def main(self: object, args: list[str]):
     print(args)
     for arg in args:
         if arg.startswith("-"):
-            if len(arg) == 1:
-                flags.append(arg)
-            else:
-                for flag in arg[1:]:
-                    flags.append(f"-{flag}")
+            flags += [f"-{i}" for i in arg[1:]] if len(arg) > 2 else [arg]
         else:
             paths.append(arg)
     print(*flags)
