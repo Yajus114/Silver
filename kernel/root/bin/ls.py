@@ -4,22 +4,25 @@
 
 
 def main(self: object, args: list[str]):
-    paths = [];
+    paths = []
     flags = []
+    print(args)
     for arg in args:
         if arg.startswith("-"):
-            flags.append(arg)
+            if len(arg) == 1:
+                flags.append(arg)
+            else:
+                for flag in arg[1:]:
+                    flags.append(f"-{flag}")
         else:
             paths.append(arg)
-
-    long = False
-    if "-l" in flags:
-        long = True
+    print(*flags)
+    long = "-l" in flags
 
     if "--h" in flags:
         self.cout("///USAGE///\nls <directory_path> <-a> <-l>\nechoes contents of the directory specified.")
         return
-    elif paths == []:
+    elif not paths:
         try:
             files = self.list_directory(self.current_directory, long)
         except ValueError as e:
@@ -44,7 +47,7 @@ def main(self: object, args: list[str]):
         for i, eggs in enumerate(files):
             if eggs[0] == ".":
                 files.pop(i)
-    if files == []:
+    if not files:
         self.cout("///DIRECTORY EMPTY///")
         return 0
 

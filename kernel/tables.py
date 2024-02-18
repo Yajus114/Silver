@@ -5,7 +5,6 @@ it'll do.
 
 
 def tabulate(table: tuple[list[str]], delim: str = "|"):
-    number_rows = len(table)
     number_columns = len(table[0])
     column_max = []
     for _ in range(number_columns):
